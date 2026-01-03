@@ -33,7 +33,8 @@ export default function AdminPage() {
 
   const handleLogin = (e) => {
     e.preventDefault()
-    if (password === 'ZitraAdmin2025') {
+    const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'ZitraAdmin2025'
+    if (password === adminPassword) {
       setIsAuthenticated(true)
     } else {
       setPasswordError('Invalid password')
@@ -45,7 +46,7 @@ export default function AdminPage() {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">Z</div>
+            <img src="/logo.png" alt="Zitra" className="h-12 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-900">Admin Access</h1>
             <p className="text-gray-600 mt-2">Enter password to continue</p>
           </div>
@@ -54,8 +55,7 @@ export default function AdminPage() {
             {passwordError && <p className="text-red-500 text-sm mb-4">{passwordError}</p>}
             <button type="submit" className="btn-primary w-full justify-center">Login</button>
           </form>
-          <p className="text-center text-xs text-gray-400 mt-6">Demo password: ZitraAdmin2025</p>
-          <Link href="/" className="block text-center text-sm text-gray-500 hover:text-primary mt-4">← Back to website</Link>
+          <Link href="/" className="block text-center text-sm text-gray-500 hover:text-primary mt-6">← Back to website</Link>
         </div>
       </div>
     )
@@ -86,7 +86,7 @@ export default function AdminPage() {
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold">Z</div>
+            <img src="/logo.png" alt="Zitra" className="h-8" />
             <div>
               <h1 className="font-bold text-gray-900">Ambassador Admin</h1>
               <p className="text-xs text-gray-500">Manage applications</p>

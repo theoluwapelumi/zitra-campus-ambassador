@@ -227,12 +227,7 @@ export default function ApplyPage() {
             <ArrowLeft size={20} />
             <span className="font-medium">Back to Home</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              Z
-            </div>
-            <span className="font-bold text-primary">Zitra</span>
-          </div>
+          <img src="/logo.png" alt="Zitra" className="h-8" />
         </div>
       </header>
 

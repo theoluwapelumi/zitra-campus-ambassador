@@ -11,11 +11,8 @@ function Navigation() {
     <nav className="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold text-lg">
-              Z
-            </div>
-            <span className="text-xl font-bold text-primary">Zitra</span>
+          <Link href="/" className="flex items-center">
+            <img src="/logo.png" alt="Zitra" className="h-10" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -122,7 +119,7 @@ function About() {
   ]
 
   return (
-    <section id="about" className="py-20 px-4 bg-white">
+    <section id="about" className="py-20 px-4 bg-white scroll-mt-16">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image */}
@@ -444,11 +441,8 @@ function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-10 mb-10">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                Z
-              </div>
-              <span className="text-xl font-bold">Zitra</span>
+            <div className="mb-4">
+              <img src="/logo.png" alt="Zitra" className="h-10 brightness-0 invert" />
             </div>
             <p className="text-gray-400 text-sm mb-4">
               Empowering the next generation of financial leaders across Nigerian universities.
@@ -477,8 +471,8 @@ function Footer() {
             <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="#" className="hover:text-primary transition-colors">Zitra Bank</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">Zitra Investments</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Mobile App</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Business Banking</a></li>
+              <li><a href="https://zitra.to/app" className="hover:text-primary transition-colors">Download Zitra</a></li>
+              <li><a href="https://business.zitrabank.com" className="hover:text-primary transition-colors">Business Banking</a></li>
             </ul>
           </div>
 

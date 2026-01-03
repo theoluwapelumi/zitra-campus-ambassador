@@ -448,11 +448,10 @@ function Footer() {
               Empowering the next generation of financial leaders across Nigerian universities.
             </p>
             <div className="flex gap-3">
-              {['𝕏', 'in', 'f', '📸'].map((icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                  {icon}
-                </a>
-              ))}
+              <a href="https://www.twitter.com/ZitraNigeria" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">𝕏</a>
+              <a href="https://www.linkedin.com/company/zitranigeria" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">in</a>
+              <a href="https://www.facebook.com/ZitraNigeria" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">f</a>
+              <a href="https://www.instagram.com/zitranigeria" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">📸</a>
             </div>
           </div>
 

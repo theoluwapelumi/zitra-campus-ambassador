@@ -12,7 +12,7 @@ function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" alt="Zitra" className="h-10" />
+            <img src="/logo.svg" alt="Zitra" className="h-10" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -57,7 +57,7 @@ function Navigation() {
 // Hero Section
 function Hero() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-green-50 to-white pt-24 pb-16 px-4 relative overflow-hidden">
+    <section className="bg-gradient-to-b from-green-50 to-white pt-24 pb-20 px-4 relative overflow-hidden">
       {/* Background shapes */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full opacity-10 -translate-y-1/2 translate-x-1/2 animate-float" />
       <div className="absolute bottom-1/4 left-0 w-48 h-48 bg-secondary-yellow rounded-full opacity-20 -translate-x-1/2 animate-float-delayed" />
@@ -442,7 +442,7 @@ function Footer() {
         <div className="grid md:grid-cols-4 gap-10 mb-10">
           <div>
             <div className="mb-4">
-              <img src="/logo.png" alt="Zitra" className="h-10 brightness-0 invert" />
+              <img src="/logo.svg" alt="Zitra" className="h-10 brightness-0 invert" />
             </div>
             <p className="text-gray-400 text-sm mb-4">
               Empowering the next generation of financial leaders across Nigerian universities.

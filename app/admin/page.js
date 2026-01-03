@@ -46,7 +46,7 @@ export default function AdminPage() {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8">
           <div className="text-center mb-8">
-            <img src="/logo.png" alt="Zitra" className="h-12 mx-auto mb-4" />
+            <img src="/logo.svg" alt="Zitra" className="h-12 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-900">Admin Access</h1>
             <p className="text-gray-600 mt-2">Enter password to continue</p>
           </div>
@@ -86,7 +86,7 @@ export default function AdminPage() {
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Zitra" className="h-8" />
+            <img src="/logo.svg" alt="Zitra" className="h-8" />
             <div>
               <h1 className="font-bold text-gray-900">Ambassador Admin</h1>
               <p className="text-xs text-gray-500">Manage applications</p>

@@ -227,7 +227,7 @@ export default function ApplyPage() {
             <ArrowLeft size={20} />
             <span className="font-medium">Back to Home</span>
           </Link>
-          <img src="/logo.png" alt="Zitra" className="h-8" />
+          <img src="/logo.svg" alt="Zitra" className="h-8" />
         </div>
       </header>
 

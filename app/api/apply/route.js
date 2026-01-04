@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
+import { uploadToCloudinary } from '@/lib/cloudinary'
+import { sendConfirmationEmail, sendAdminNotification } from '@/lib/email'
 
 export async function POST(request) {
   try {
@@ -33,18 +35,6 @@ export async function POST(request) {
       campusActivities: formData.get('campusActivities'),
     }
 
-    // Handle file uploads
-    // In production, you would upload these to cloud storage (Vercel Blob, AWS S3, Cloudinary)
-    // and store the URLs. For now, we'll skip file storage.
-    const studentIdFile = formData.get('studentIdFile')
-    const transcriptFile = formData.get('transcriptFile')
-    const passportPhoto = formData.get('passportPhoto')
-
-    // TODO: Upload files to Vercel Blob or cloud storage and get URLs
-    // applicationData.studentIdUrl = await uploadToBlob(studentIdFile)
-    // applicationData.transcriptUrl = await uploadToBlob(transcriptFile)
-    // applicationData.passportUrl = await uploadToBlob(passportPhoto)
-
     // Check if email already exists
     const existingApplication = await prisma.application.findUnique({
       where: { email: applicationData.email }
@@ -57,13 +47,44 @@ export async function POST(request) {
       )
     }
 
+    // Handle file uploads to Cloudinary
+    const studentIdFile = formData.get('studentIdFile')
+    const transcriptFile = formData.get('transcriptFile')
+    const passportPhoto = formData.get('passportPhoto')
+
+    try {
+      // Upload files if they exist and are valid File objects
+      if (studentIdFile && studentIdFile instanceof File && studentIdFile.size > 0) {
+        applicationData.studentIdUrl = await uploadToCloudinary(studentIdFile, 'ambassador-applications/student-ids')
+      }
+
+      if (transcriptFile && transcriptFile instanceof File && transcriptFile.size > 0) {
+        applicationData.transcriptUrl = await uploadToCloudinary(transcriptFile, 'ambassador-applications/transcripts')
+      }
+
+      if (passportPhoto && passportPhoto instanceof File && passportPhoto.size > 0) {
+        applicationData.passportUrl = await uploadToCloudinary(passportPhoto, 'ambassador-applications/photos')
+      }
+    } catch (uploadError) {
+      console.error('File upload error:', uploadError)
+      // Continue without files if upload fails - don't block the application
+    }
+
     // Save application to database
     const application = await prisma.application.create({
       data: applicationData
     })
 
-    // TODO: Send confirmation email to applicant
-    // TODO: Send notification to admin
+    // Send emails (don't block on email failures)
+    try {
+      await Promise.all([
+        sendConfirmationEmail(application),
+        sendAdminNotification(application)
+      ])
+    } catch (emailError) {
+      console.error('Email sending error:', emailError)
+      // Continue even if emails fail
+    }
 
     return NextResponse.json({
       success: true,

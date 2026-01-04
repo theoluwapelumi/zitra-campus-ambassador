@@ -85,8 +85,7 @@ export default function AdminPage() {
             {passwordError && <p className="text-red-500 text-sm mb-4">{passwordError}</p>}
             <button type="submit" className="btn-primary w-full justify-center">Login</button>
           </form>
-          <p className="text-center text-xs text-gray-400 mt-6">Demo password: ZitraAdmin2025</p>
-          <Link href="/" className="block text-center text-sm text-gray-500 hover:text-primary mt-4">← Back to website</Link>
+          <Link href="/" className="block text-center text-sm text-gray-500 hover:text-primary mt-6">← Back to website</Link>
         </div>
       </div>
     )

@@ -439,6 +439,13 @@ function FAQ() {
 
 // Footer
 function Footer() {
+  const socialLinks = [
+    { icon: '𝕏', href: 'https://twitter.com/ziaborng', label: 'Twitter' },
+    { icon: 'in', href: 'https://linkedin.com/company/zitrabank', label: 'LinkedIn' },
+    { icon: 'f', href: 'https://facebook.com/zitrabank', label: 'Facebook' },
+    { icon: '📸', href: 'https://instagram.com/zitrabank', label: 'Instagram' },
+  ]
+
   return (
     <footer className="bg-gray-900 text-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
@@ -454,9 +461,9 @@ function Footer() {
               Empowering the next generation of financial leaders across Nigerian universities.
             </p>
             <div className="flex gap-3">
-              {['𝕏', 'in', 'f', '📸'].map((icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                  {icon}
+              {socialLinks.map((social, i) => (
+                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label} className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                  {social.icon}
                 </a>
               ))}
             </div>
@@ -465,20 +472,20 @@ function Footer() {
           <div>
             <h4 className="font-semibold mb-4">About</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="#" className="hover:text-primary transition-colors">Ambassador Program</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">How It Works</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Eligibility</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">FAQ</a></li>
+              <li><a href="#about" className="hover:text-primary transition-colors">Ambassador Program</a></li>
+              <li><a href="#process" className="hover:text-primary transition-colors">How It Works</a></li>
+              <li><a href="#eligibility" className="hover:text-primary transition-colors">Eligibility</a></li>
+              <li><a href="#faq" className="hover:text-primary transition-colors">FAQ</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="#" className="hover:text-primary transition-colors">Zitra Bank</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Zitra Investments</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Mobile App</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Business Banking</a></li>
+              <li><a href="https://zitrabank.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Zitra Bank</a></li>
+              <li><a href="https://zitrabank.com/investments" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Zitra Investments</a></li>
+              <li><a href="https://zitrabank.com/app" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Mobile App</a></li>
+              <li><a href="https://zitrabank.com/business" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Business Banking</a></li>
             </ul>
           </div>
 
@@ -486,15 +493,15 @@ function Footer() {
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="mailto:ambassadors@zitrabank.com" className="hover:text-primary transition-colors">ambassadors@zitrabank.com</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
+              <li><a href="https://zitrabank.com/help" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Help Center</a></li>
+              <li><a href="https://zitrabank.com/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Privacy Policy</a></li>
+              <li><a href="https://zitrabank.com/terms" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Terms of Service</a></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-          © 2025 Zitra. All rights reserved.
+          © {new Date().getFullYear()} Zitra. All rights reserved.
         </div>
       </div>
     </footer>

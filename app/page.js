@@ -1,7 +1,36 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X, ChevronDown, Check, Quote, GraduationCap, Users, CreditCard, BarChart3, ArrowRight, Mail, Phone, MapPin } from 'lucide-react'
+
+const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL
+
+// Logo Component
+function Logo({ size = 40, className = '' }) {
+  if (LOGO_URL) {
+    return (
+      <Image
+        src={LOGO_URL}
+        alt="Zitra Logo"
+        width={size}
+        height={size}
+        className={`object-contain ${className}`}
+        priority
+      />
+    )
+  }
+
+  // Fallback to styled "Z" placeholder
+  return (
+    <div
+      className={`bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold ${className}`}
+      style={{ width: size, height: size, fontSize: size * 0.45 }}
+    >
+      Z
+    </div>
+  )
+}
 
 // Navigation Component
 function Navigation() {
@@ -12,9 +41,7 @@ function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold text-lg">
-              Z
-            </div>
+            <Logo size={40} />
             <span className="text-xl font-bold text-primary">Zitra</span>
           </Link>
 
@@ -60,7 +87,7 @@ function Navigation() {
 // Hero Section
 function Hero() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-green-50 to-white pt-24 pb-16 px-4 relative overflow-hidden">
+    <section className="bg-gradient-to-b from-green-50 to-white pt-24 pb-16 px-4 relative overflow-hidden">
       {/* Background shapes */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full opacity-10 -translate-y-1/2 translate-x-1/2 animate-float" />
       <div className="absolute bottom-1/4 left-0 w-48 h-48 bg-secondary-yellow rounded-full opacity-20 -translate-x-1/2 animate-float-delayed" />
@@ -440,10 +467,10 @@ function FAQ() {
 // Footer
 function Footer() {
   const socialLinks = [
-    { icon: '𝕏', href: 'https://twitter.com/ziaborng', label: 'Twitter' },
-    { icon: 'in', href: 'https://linkedin.com/company/zitrabank', label: 'LinkedIn' },
-    { icon: 'f', href: 'https://facebook.com/zitrabank', label: 'Facebook' },
-    { icon: '📸', href: 'https://instagram.com/zitrabank', label: 'Instagram' },
+    { icon: '𝕏', href: 'https://www.twitter.com/ZitraNigeria', label: 'Twitter' },
+    { icon: 'in', href: 'https://www.linkedin.com/company/zitramicrofinancebank', label: 'LinkedIn' },
+    { icon: 'f', href: 'https://www.facebook.com/ZitraNigeria', label: 'Facebook' },
+    { icon: '📸', href: 'https://www.instagram.com/zitranigeria', label: 'Instagram' },
   ]
 
   return (
@@ -452,9 +479,7 @@ function Footer() {
         <div className="grid md:grid-cols-4 gap-10 mb-10">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                Z
-              </div>
+              <Logo size={40} />
               <span className="text-xl font-bold">Zitra</span>
             </div>
             <p className="text-gray-400 text-sm mb-4">
@@ -484,8 +509,8 @@ function Footer() {
             <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="https://zitrabank.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Zitra Bank</a></li>
               <li><a href="https://zitrabank.com/investments" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Zitra Investments</a></li>
-              <li><a href="https://zitrabank.com/app" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Mobile App</a></li>
-              <li><a href="https://zitrabank.com/business" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Business Banking</a></li>
+              <li><a href="https://zitra.to/app" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Download Zitra</a></li>
+              <li><a href="https://business.zitrabank.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Business Banking</a></li>
             </ul>
           </div>
 

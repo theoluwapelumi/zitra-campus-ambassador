@@ -62,12 +62,26 @@ export default function AdminPage() {
     }
   }, [searchTerm])
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    if (password === 'ZitraAdmin2025') {
-      setIsAuthenticated(true)
-    } else {
-      setPasswordError('Invalid password')
+    setPasswordError('')
+
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      })
+
+      const data = await res.json()
+
+      if (data.success) {
+        setIsAuthenticated(true)
+      } else {
+        setPasswordError('Invalid password')
+      }
+    } catch (error) {
+      setPasswordError('Authentication failed. Please try again.')
     }
   }
 

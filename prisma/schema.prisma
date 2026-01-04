@@ -1,0 +1,73 @@
+// Prisma schema for Zitra Campus Ambassador Program
+// Using Vercel Postgres
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // Uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Direct connection for migrations
+}
+
+model Application {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Personal Information
+  firstName     String
+  lastName      String
+  email         String   @unique
+  phone         String
+  dateOfBirth   String
+  gender        String
+  stateOfOrigin String
+
+  // Academic Information
+  university         String
+  otherUniversity    String?
+  faculty            String
+  department         String
+  matricNumber       String
+  currentLevel       String
+  expectedGraduation String
+  cgpa               Float
+
+  // Zitra Account
+  hasZitraAccount    String
+  zitraAccountNumber String?
+
+  // Social Media & Influence
+  instagramHandle String?
+  twitterHandle   String?
+  linkedinUrl     String?
+  followersCount  String?
+
+  // Motivation
+  whyAmbassador       String @db.Text
+  marketingExperience String? @db.Text
+  campusActivities    String @db.Text
+
+  // Document URLs (stored after upload to cloud storage)
+  studentIdUrl   String?
+  transcriptUrl  String?
+  passportUrl    String?
+
+  // Application Status
+  status      ApplicationStatus @default(PENDING)
+  submittedAt DateTime          @default(now())
+
+  @@index([email])
+  @@index([status])
+  @@index([university])
+  @@index([submittedAt])
+}
+
+enum ApplicationStatus {
+  PENDING
+  INTERVIEW
+  APPROVED
+  REJECTED
+}

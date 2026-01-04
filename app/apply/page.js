@@ -177,17 +177,26 @@ export default function ApplyPage() {
 
     setIsSubmitting(true)
 
-    // Simulate API call
     try {
-      // In production, this would send to your API endpoint
-      // const formDataObj = new FormData()
-      // Object.keys(formData).forEach(key => {
-      //   formDataObj.append(key, formData[key])
-      // })
-      // await fetch('/api/apply', { method: 'POST', body: formDataObj })
+      const formDataObj = new FormData()
+      Object.keys(formData).forEach(key => {
+        if (formData[key] !== null && formData[key] !== undefined) {
+          formDataObj.append(key, formData[key])
+        }
+      })
 
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      setSubmitSuccess(true)
+      const response = await fetch('/api/apply', {
+        method: 'POST',
+        body: formDataObj
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitSuccess(true)
+      } else {
+        alert(result.message || 'An error occurred. Please try again.')
+      }
     } catch (error) {
       alert('An error occurred. Please try again.')
     } finally {

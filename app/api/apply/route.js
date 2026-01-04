@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server'
-
-// In production, this would connect to your database
-// and send emails via your email service
+import prisma from '@/lib/prisma'
 
 export async function POST(request) {
   try {
     const formData = await request.formData()
-    
+
     // Extract form fields
     const applicationData = {
-      id: `APP${Date.now()}`,
       firstName: formData.get('firstName'),
       lastName: formData.get('lastName'),
       email: formData.get('email'),
@@ -18,49 +15,60 @@ export async function POST(request) {
       gender: formData.get('gender'),
       stateOfOrigin: formData.get('stateOfOrigin'),
       university: formData.get('university'),
-      otherUniversity: formData.get('otherUniversity'),
+      otherUniversity: formData.get('otherUniversity') || null,
       faculty: formData.get('faculty'),
       department: formData.get('department'),
       matricNumber: formData.get('matricNumber'),
       currentLevel: formData.get('currentLevel'),
       expectedGraduation: formData.get('expectedGraduation'),
-      cgpa: formData.get('cgpa'),
+      cgpa: parseFloat(formData.get('cgpa')),
       hasZitraAccount: formData.get('hasZitraAccount'),
-      zitraAccountNumber: formData.get('zitraAccountNumber'),
-      instagramHandle: formData.get('instagramHandle'),
-      twitterHandle: formData.get('twitterHandle'),
-      linkedinUrl: formData.get('linkedinUrl'),
-      followersCount: formData.get('followersCount'),
+      zitraAccountNumber: formData.get('zitraAccountNumber') || null,
+      instagramHandle: formData.get('instagramHandle') || null,
+      twitterHandle: formData.get('twitterHandle') || null,
+      linkedinUrl: formData.get('linkedinUrl') || null,
+      followersCount: formData.get('followersCount') || null,
       whyAmbassador: formData.get('whyAmbassador'),
-      marketingExperience: formData.get('marketingExperience'),
+      marketingExperience: formData.get('marketingExperience') || null,
       campusActivities: formData.get('campusActivities'),
-      status: 'pending',
-      submittedAt: new Date().toISOString(),
     }
 
     // Handle file uploads
+    // In production, you would upload these to cloud storage (Vercel Blob, AWS S3, Cloudinary)
+    // and store the URLs. For now, we'll skip file storage.
     const studentIdFile = formData.get('studentIdFile')
     const transcriptFile = formData.get('transcriptFile')
     const passportPhoto = formData.get('passportPhoto')
 
-    // In production:
-    // 1. Upload files to cloud storage (AWS S3, Cloudinary, etc.)
-    // 2. Save application data to database (MongoDB, PostgreSQL, etc.)
-    // 3. Send confirmation email to applicant
-    // 4. Send notification to admin
+    // TODO: Upload files to Vercel Blob or cloud storage and get URLs
+    // applicationData.studentIdUrl = await uploadToBlob(studentIdFile)
+    // applicationData.transcriptUrl = await uploadToBlob(transcriptFile)
+    // applicationData.passportUrl = await uploadToBlob(passportPhoto)
 
-    console.log('New application received:', applicationData)
+    // Check if email already exists
+    const existingApplication = await prisma.application.findUnique({
+      where: { email: applicationData.email }
+    })
 
-    // Simulate processing delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    if (existingApplication) {
+      return NextResponse.json(
+        { success: false, message: 'An application with this email already exists' },
+        { status: 400 }
+      )
+    }
 
-    // Send confirmation email (placeholder)
-    // await sendConfirmationEmail(applicationData.email, applicationData.firstName)
+    // Save application to database
+    const application = await prisma.application.create({
+      data: applicationData
+    })
+
+    // TODO: Send confirmation email to applicant
+    // TODO: Send notification to admin
 
     return NextResponse.json({
       success: true,
       message: 'Application submitted successfully',
-      applicationId: applicationData.id,
+      applicationId: application.id,
     })
 
   } catch (error) {

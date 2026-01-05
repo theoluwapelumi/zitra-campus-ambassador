@@ -1,11 +1,40 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Search, Download, Eye, CheckCircle, XCircle, Clock,
   ChevronDown, Users, GraduationCap, TrendingUp,
   Mail, Phone, Calendar, X, Loader2
 } from 'lucide-react'
+
+const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL
+
+// Logo Component
+function Logo({ size = 40, className = '' }) {
+  if (LOGO_URL) {
+    return (
+      <Image
+        src={LOGO_URL}
+        alt="Zitra Logo"
+        width={size}
+        height={size}
+        className={`object-contain ${className}`}
+        priority
+      />
+    )
+  }
+
+  // Fallback to styled "Z" placeholder
+  return (
+    <div
+      className={`bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold ${className}`}
+      style={{ width: size, height: size, fontSize: size * 0.45 }}
+    >
+      Z
+    </div>
+  )
+}
 
 const statusConfig = {
   PENDING: { label: 'Pending', color: 'bg-yellow-100 text-yellow-700', icon: Clock },
@@ -90,7 +119,7 @@ export default function AdminPage() {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">Z</div>
+            <div className="mx-auto mb-4"><Logo size={64} /></div>
             <h1 className="text-2xl font-bold text-gray-900">Admin Access</h1>
             <p className="text-gray-600 mt-2">Enter password to continue</p>
           </div>
@@ -163,7 +192,7 @@ export default function AdminPage() {
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold">Z</div>
+            <Logo size={40} />
             <div>
               <h1 className="font-bold text-gray-900">Ambassador Admin</h1>
               <p className="text-xs text-gray-500">Manage applications</p>

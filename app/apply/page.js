@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, ArrowRight, Upload, Check, Loader2, AlertCircle } from 'lucide-react'
 
 // Nigerian Universities List (sample)
@@ -41,6 +42,34 @@ const states = [
 ]
 
 const studyLevels = ['100 Level', '200 Level', '300 Level', '400 Level', '500 Level', '600 Level (Medicine/Engineering)']
+
+const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL
+
+// Logo Component
+function Logo({ size = 40, className = '' }) {
+  if (LOGO_URL) {
+    return (
+      <Image
+        src={LOGO_URL}
+        alt="Zitra Logo"
+        width={size}
+        height={size}
+        className={`object-contain ${className}`}
+        priority
+      />
+    )
+  }
+
+  // Fallback to styled "Z" placeholder
+  return (
+    <div
+      className={`bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold ${className}`}
+      style={{ width: size, height: size, fontSize: size * 0.45 }}
+    >
+      Z
+    </div>
+  )
+}
 
 export default function ApplyPage() {
   const [step, setStep] = useState(1)
@@ -237,10 +266,7 @@ export default function ApplyPage() {
             <span className="font-medium">Back to Home</span>
           </Link>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              Z
-            </div>
-            <span className="font-bold text-primary">Zitra</span>
+            <Logo size={32} />
           </div>
         </div>
       </header>

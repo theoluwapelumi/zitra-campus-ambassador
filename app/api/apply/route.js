@@ -35,10 +35,31 @@ export async function POST(request) {
       campusActivities: formData.get('campusActivities'),
     }
 
+    // Validate required fields
+    const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'dateOfBirth', 'gender', 'stateOfOrigin', 'university', 'faculty', 'department', 'matricNumber', 'currentLevel', 'expectedGraduation', 'cgpa', 'hasZitraAccount', 'whyAmbassador', 'campusActivities']
+
+    for (const field of requiredFields) {
+      if (!applicationData[field] && applicationData[field] !== 0) {
+        return NextResponse.json(
+          { success: false, message: `Missing required field: ${field}` },
+          { status: 400 }
+        )
+      }
+    }
+
     // Check if email already exists
-    const existingApplication = await prisma.application.findUnique({
-      where: { email: applicationData.email }
-    })
+    let existingApplication
+    try {
+      existingApplication = await prisma.application.findUnique({
+        where: { email: applicationData.email }
+      })
+    } catch (dbError) {
+      console.error('Database query error:', dbError)
+      return NextResponse.json(
+        { success: false, message: 'Database connection error. Please try again.' },
+        { status: 500 }
+      )
+    }
 
     if (existingApplication) {
       return NextResponse.json(
@@ -53,7 +74,6 @@ export async function POST(request) {
     const passportPhoto = formData.get('passportPhoto')
 
     try {
-      // Upload files if they exist and are valid File objects
       if (studentIdFile && studentIdFile instanceof File && studentIdFile.size > 0) {
         applicationData.studentIdUrl = await uploadToCloudinary(studentIdFile, 'ambassador-applications/student-ids')
       }
@@ -67,13 +87,22 @@ export async function POST(request) {
       }
     } catch (uploadError) {
       console.error('File upload error:', uploadError)
-      // Continue without files if upload fails - don't block the application
+      // Continue without files if upload fails
     }
 
     // Save application to database
-    const application = await prisma.application.create({
-      data: applicationData
-    })
+    let application
+    try {
+      application = await prisma.application.create({
+        data: applicationData
+      })
+    } catch (createError) {
+      console.error('Database create error:', createError)
+      return NextResponse.json(
+        { success: false, message: `Database error: ${createError.message}` },
+        { status: 500 }
+      )
+    }
 
     // Send emails (don't block on email failures)
     try {
@@ -83,7 +112,6 @@ export async function POST(request) {
       ])
     } catch (emailError) {
       console.error('Email sending error:', emailError)
-      // Continue even if emails fail
     }
 
     return NextResponse.json({
@@ -95,7 +123,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Error processing application:', error)
     return NextResponse.json(
-      { success: false, message: 'Failed to submit application' },
+      { success: false, message: `Error: ${error.message}` },
       { status: 500 }
     )
   }

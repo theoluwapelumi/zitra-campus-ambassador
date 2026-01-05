@@ -40,9 +40,8 @@ function Navigation() {
     <nav className="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center">
             <Logo size={40} />
-            <span className="text-xl font-bold text-primary">Zitra</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -480,7 +479,6 @@ function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Logo size={40} />
-              <span className="text-xl font-bold">Zitra</span>
             </div>
             <p className="text-gray-400 text-sm mb-4">
               Empowering the next generation of financial leaders across Nigerian universities.
@@ -517,7 +515,7 @@ function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="mailto:ambassadors@zitrabank.com" className="hover:text-primary transition-colors">ambassadors@zitrabank.com</a></li>
+              <li><a href="mailto:campus@zitrabank.com" className="hover:text-primary transition-colors">campus@zitrabank.com</a></li>
               <li><a href="https://zitrabank.com/help" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Help Center</a></li>
               <li><a href="https://zitrabank.com/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Privacy Policy</a></li>
               <li><a href="https://zitrabank.com/terms" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Terms of Service</a></li>
